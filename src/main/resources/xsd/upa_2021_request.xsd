@@ -1,0 +1,1889 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2019 rel. 3 sp1 (http://www.altova.com) by Jeroen Hartogensis (SIVI) -->
+<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:upa="http://www.pensioenfederatie.nl/uniformePensioenAangifte/2021/01" targetNamespace="http://www.pensioenfederatie.nl/uniformePensioenAangifte/2021/01" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<annotation>
+		<documentation>Beschrijving van de structuur van een Uniforme Pensioen Aangifte (een UPA)</documentation>
+		<documentation>Gedefinieerd door de Pensioenfederatie</documentation>
+	</annotation>
+	<annotation>
+		<documentation>-- Versie informatie --</documentation>
+		<documentation>Versie 2021 1.0</documentation>
+		<documentation>Toegevoegd Indicatie publiekrechtelijke aanstelling voor onbepaalde tijd, IndPubAanOnbepTd</documentation>
+		<documentation>Toegevoegd codewaarde 53 bij Code soort inkomstenverhouding / inkomenscode, SrtIV</documentation>
+		<documentation>---------------------</documentation>
+	</annotation>
+	<simpleType name="BerichtAanmaakDatum">
+		<annotation>
+			<documentation>De dag en het tijdstip waarop het bericht is aangemaakt.</documentation>
+		</annotation>
+		<restriction base="dateTime"/>
+	</simpleType>
+	<simpleType name="CodeCAO">
+		<annotation>
+			<documentation>De CAO code zoals vastgesteld door Ministerie van Sociale Zaken en Werkgelegenheid of het CBS</documentation>
+		</annotation>
+		<restriction base="nonNegativeInteger">
+			<totalDigits value="4"/>
+			<maxInclusive value="9999"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="LoonBelastingTabel">
+		<annotation>
+			<documentation>Een code waarmee aangegeven wordt welke tabel voor de inhouding van LB/PH is toegepast</documentation>
+		</annotation>
+		<restriction base="string">
+			<length value="3"/>
+			<enumeration value="010"/>
+			<enumeration value="011"/>
+			<enumeration value="012"/>
+			<enumeration value="013"/>
+			<enumeration value="014"/>
+			<enumeration value="015"/>
+			<enumeration value="020"/>
+			<enumeration value="021"/>
+			<enumeration value="022"/>
+			<enumeration value="023"/>
+			<enumeration value="024"/>
+			<enumeration value="025"/>
+			<enumeration value="210"/>
+			<enumeration value="220"/>
+			<enumeration value="221"/>
+			<enumeration value="224"/>
+			<enumeration value="225"/>
+			<enumeration value="226"/>
+			<enumeration value="227"/>
+			<enumeration value="228"/>
+			<enumeration value="250"/>
+			<enumeration value="310"/>
+			<enumeration value="311"/>
+			<enumeration value="312"/>
+			<enumeration value="313"/>
+			<enumeration value="314"/>
+			<enumeration value="315"/>
+			<enumeration value="320"/>
+			<enumeration value="321"/>
+			<enumeration value="322"/>
+			<enumeration value="323"/>
+			<enumeration value="324"/>
+			<enumeration value="325"/>
+			<enumeration value="510"/>
+			<enumeration value="511"/>
+			<enumeration value="512"/>
+			<enumeration value="513"/>
+			<enumeration value="514"/>
+			<enumeration value="515"/>
+			<enumeration value="520"/>
+			<enumeration value="521"/>
+			<enumeration value="522"/>
+			<enumeration value="523"/>
+			<enumeration value="524"/>
+			<enumeration value="525"/>
+			<enumeration value="610"/>
+			<enumeration value="611"/>
+			<enumeration value="612"/>
+			<enumeration value="613"/>
+			<enumeration value="614"/>
+			<enumeration value="615"/>
+			<enumeration value="620"/>
+			<enumeration value="621"/>
+			<enumeration value="622"/>
+			<enumeration value="623"/>
+			<enumeration value="624"/>
+			<enumeration value="625"/>
+			<enumeration value="710"/>
+			<enumeration value="711"/>
+			<enumeration value="712"/>
+			<enumeration value="713"/>
+			<enumeration value="714"/>
+			<enumeration value="715"/>
+			<enumeration value="720"/>
+			<enumeration value="721"/>
+			<enumeration value="722"/>
+			<enumeration value="723"/>
+			<enumeration value="724"/>
+			<enumeration value="725"/>
+			<enumeration value="940"/>
+			<enumeration value="950"/>
+			<enumeration value="999"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="InkomstenVerhoudingId">
+		<annotation>
+			<documentation>Nummer, zoals vermeld in de loonstaat, waarmee de inkomstenverhouding in combinatie met het BSN (bij het ontbreken ervan het sofinummer) of het personeelsnummer wordt geÃ¯dentificeerd. </documentation>
+		</annotation>
+		<restriction base="nonNegativeInteger">
+			<totalDigits value="4"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="PersoonsNummer">
+		<annotation>
+			<documentation>Het nummer waaronder de persoon bij de werkgever bekend is.</documentation>
+		</annotation>
+		<restriction base="upa:NonEmptyString">
+			<maxLength value="35"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="Voorvoegsel">
+		<annotation>
+			<documentation>De verzameling van Ã©Ã©n of meer voorzetsels en/of lidwoorden die aan het significante deel van de achternaam vooraf gaat en daarmee gezamenlijk de achternaam vormt.</documentation>
+		</annotation>
+		<restriction base="string">
+			<maxLength value="10"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="Achternaam">
+		<annotation>
+			<documentation>De achternaam zonder voorvoegsels.</documentation>
+		</annotation>
+		<restriction base="upa:NonEmptyString">
+			<maxLength value="200"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="CodeFaseIndelingFenZ">
+		<annotation/>
+		<restriction base="nonNegativeInteger"/>
+	</simpleType>
+	<simpleType name="CodeSoortInkomstenverhouding">
+		<annotation/>
+		<restriction base="nonNegativeInteger">
+			<enumeration value="11">
+				<annotation>
+					<documentation>Loon of salaris ambtenaren in de zin van de Ambtenarenwet 1929</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="13">
+				<annotation>
+					<documentation>Loon of salaris directeuren van een nv of bv, wel verzekerd voor de werknemersverzekeringen</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="15">
+				<annotation>
+					<documentation>Loon of salaris niet onder te brengen onder 11, 13 of 17</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="17">
+				<annotation>
+					<documentation>
+            Loon of salaris directeuren-grootaandeelhouders van een nv of bv, niet verzekerd voor de
+            werknemersverzekeringen
+          </documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="18">
+				<annotation>
+					<documentation>Wachtgeld van een overheidsinstelling</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="22">
+				<annotation>
+					<documentation>Uitkering in het kader van de Algemene Ouderdomswet (aow)</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="23">
+				<annotation>
+					<documentation>Oorlogs- en verzetspensioenen</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="24">
+				<annotation>
+					<documentation>Uitkering in het kader van de Algemene nabestaandenwet (Anw)</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="31">
+				<annotation>
+					<documentation>
+            Uitkering in het kader van de Ziektewet (zw)
+            en vrijwillige verzekering Ziektewet
+          </documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="32">
+				<annotation>
+					<documentation>
+            Uitkering in het kader van de Wet op de arbeidsongeschiktheidsverzekering
+            (wao) en particuliere verzekering ziekte, invaliditeit en ongeval
+          </documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="33">
+				<annotation>
+					<documentation>Uitkering in het kader van de Nieuwe Werkloosheidswet (nww)</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="34">
+				<annotation>
+					<documentation>
+            Uitkering in het kader van de Wet inkomensvoorziening
+            oudere en gedeeltelijk arbeidsongeschikte werkloze werknemers (ioaw)
+          </documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="35">
+				<annotation>
+					<documentation>
+            Vervolguitkering in het kader van de Nieuwe
+            Werkloosheidswet (nww)
+          </documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="36">
+				<annotation>
+					<documentation>Uitkering in het kader van de Wet arbeidsongeschiktheidsverzekering zelfstandigen (Waz)</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="37">
+				<annotation>
+					<documentation>Wet werk en arbeidsondersteuning jonggehandicapten (Wet Wajong)</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="38">
+				<annotation>
+					<documentation>Samenloop (gelijktijdig of volgtijdelijk) van uitkeringen van Wet Wajong met Waz, wao/iva of wga</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="39">
+				<annotation>
+					<documentation>Uitkering in het kader van de Regeling inkomensvoorziening volledig arbeidsongeschikten (iva)</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="40">
+				<annotation>
+					<documentation>Uitkering in het kader van de Regeling werkhervatting gedeeltelijk arbeidsgeschikten (wga)</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="42">
+				<annotation>
+					<documentation>Uitkering in het kader van bijstandsbesluit Zelfstandigen (Bbz)</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="43">
+				<annotation>
+					<documentation>Uitkering in het kader van de Wet Werk en bijstand (WWB)</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="45">
+				<annotation>
+					<documentation>
+            Uitkering in het kader van de Wet inkomensvoorziening oudere en gedeeltelijk arbeidsongeschikte
+            gewezen zelfstandigen (IOAZ)
+          </documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="46">
+				<annotation>
+					<documentation>Uitkering uit hoofde van de Toeslagenwet</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="50">
+				<annotation>
+					<documentation>
+            Uitkeringen in het kader van overige sociale verzekeringswetten, hieronder vallen tevens: Ongevallenwet
+            1921, Land- en tuinbouwongevallenwet 1922 en Zeeongevallenwet 1919 (niet 22, 24, 31 tot en met 45, 51
+            of 52).
+          </documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="52">
+				<annotation>
+					<documentation>Uitkering in het kader van de Wet inkomensvoorziening oudere werklozen (IOW)</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="53">
+				<annotation>
+					<documentation>Uitkering in het kader van vervroegde uittreding</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="54">
+				<annotation>
+					<documentation>Opname Levenslooptegoed door een werknemer die op 1 januari 61 jaar of ouder is</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="55">
+				<annotation>
+					<documentation>Uitkering in het kader van de Algemene Pensioenwet Politieke Ambtsdragers (APPA)</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="56">
+				<annotation>
+					<documentation>Ouderdomspensioen dat via de Werkgever is opgebouwd</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="57">
+				<annotation>
+					<documentation>Nabestaandenpensioen dat via de Werkgever is opgebouwd</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="58">
+				<annotation>
+					<documentation>Arbeidsongeschiktheidspensioen dat via de Werkgever is opgebouwd</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="59">
+				<annotation>
+					<documentation>Lijfrenten die zijn afgesloten in het kader van een individuele of collectieve arbeidsovereenkomst</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="60">
+				<annotation>
+					<documentation>Lijfrenten die niet zijn afgesloten in het kader van een individuele of collectieve arbeidsovereenkomst</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="61">
+				<annotation>
+					<documentation>Aanvulling van de werkgever aan een werknemer op een uitkering werknemersverzekeringen, terwijl de dienstbetrekking is beÃ«indigd</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="62">
+				<annotation>
+					<documentation>Ontslagvergoeding/Transitievergoeding</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="63">
+				<annotation>
+					<documentation>Overige, niet hiervoor aangegeven, pensioenen of samenloop van meerdere pensioenen/lijfrenten of een betaling op grond van een afspraak na einde dienstbetrekking</documentation>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<simpleType name="CodeSoortTijdvak">
+		<annotation/>
+		<restriction base="string">
+			<enumeration value="MND">
+				<annotation>
+					<documentation>Maandelijks (12 kalendertijdvakken)</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="VWK">
+				<annotation>
+					<documentation>Vier Wekelijks (13 kalendertijdvakken)</documentation>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<simpleType name="CodeIncidenteleInkomstenvermindering">
+		<annotation/>
+		<restriction base="string">
+			<enumeration value="G">
+				<annotation>
+					<documentation>Aanvullend geboorteverlof</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="O">
+				<annotation>
+					<documentation>Onbetaald verlof</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="S">
+				<annotation>
+					<documentation>Stakingsdagen</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="Z">
+				<annotation>
+					<documentation>Ziekte</documentation>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<simpleType name="AardArbeidsverhouding">
+		<annotation/>
+		<restriction base="nonNegativeInteger">
+			<enumeration value="1">
+				<annotation>
+					<documentation>Arbeidsovereenkomst</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="4">
+				<annotation>
+					<documentation>Deelvisser</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="6">
+				<annotation>
+					<documentation>Musicus/artiest</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="7">
+				<annotation>
+					<documentation>Stagiair</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="10">
+				<annotation>
+					<documentation>Wet sociale werkvoorziening (wsw)</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="11">
+				<annotation>
+					<documentation>Uitzendkracht</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="18">
+				<annotation>
+					<documentation>Publiekrechtelijke aanstelling</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="79">
+				<annotation>
+					<documentation>Opting-in regeling</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="81">
+				<annotation>
+					<documentation>Overige fictieve dienstbetrekkingen</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="82">
+				<annotation>
+					<documentation>Payrolling</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="83">
+				<annotation>
+					<documentation>Beroepspraktijkopleiding van de beroepsbegeleidende leerweg (BBL)</documentation>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<simpleType name="JaNee">
+		<annotation>
+			<documentation>Indiciatie van Ja of Nee voor Indiciatie velden. Zoals een boolean.</documentation>
+		</annotation>
+		<restriction base="string">
+			<maxLength value="1"/>
+			<enumeration value="J">
+				<annotation>
+					<documentation>Ja</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="N">
+				<annotation>
+					<documentation>Nee</documentation>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<simpleType name="LoonheffingenNummer">
+		<annotation>
+			<documentation>Een door de Belastingdienst toegekende identificatie waaronder de administratieve eenheid bekend is bij UWV/Belastingdienst.</documentation>
+		</annotation>
+		<restriction base="string">
+			<maxLength value="12"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="BerichtVersie">
+		<annotation>
+			<documentation>De versie van de berichtspecificatie waarvan gebruik gemaakt is bij het samenstellen van de uniforme pensioenaangifte</documentation>
+			<documentation>Dit gegeven is onderkend om een ontvangen uniforme pensioenaangifte op juiste wijze te kunnen interpreteren en verwerken.</documentation>
+			<documentation>Dit gegeven wordt niet expliciet uitgevraagd maar maakt onderdeel uit van de versie van de schemadefinitie (XSD).</documentation>
+			<documentation>De waarde mag anders zijn dan de waarde die ingevuld wordt bij de Loonaangifte.</documentation>
+		</annotation>
+		<restriction base="nonNegativeInteger">
+			<totalDigits value="2"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="NonEmptyString">
+		<annotation>
+			<documentation>Helper klasse: zorgt ervoor dat een string minimaal 1 karakter heeft</documentation>
+			<documentation>NIET bedoeld om rechtstreeks gebruikt te worden, WEL om gespecialiseerd te worden</documentation>
+		</annotation>
+		<restriction base="string">
+			<minLength value="1"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="BerichtId">
+		<annotation>
+			<documentation>Unieke door de inzender aan het bericht toegekende code ter identificatie van het bericht.</documentation>
+			<documentation>
+        Het kenmerk dient uniek te zijn. Het verdient aanbeveling om het loonheffingennummer van de administratieve eenheid er in op te nemen.
+        Dit bericht kenmerk wordt gebruikt in de terugkoppeling aan de inzender.
+        De waarde mag anders zijn dan de waarde die ingevuld wordt bij de Loonaangifte.
+      </documentation>
+		</annotation>
+		<restriction base="upa:NonEmptyString">
+			<maxLength value="32"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="ControleTeller">
+		<annotation>
+			<documentation>Een standaard formaat voor tellingen van het aantal voorkomende structuren binnen het XML-document</documentation>
+		</annotation>
+		<restriction base="nonNegativeInteger">
+			<minInclusive value="1"/>
+			<totalDigits value="6"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="Voorletters">
+		<annotation>
+			<documentation>De verzameling letters die wordt gevormd door de eerste letter van alle in volgorde voorkomende voornamen.</documentation>
+		</annotation>
+		<restriction base="upa:NonEmptyString">
+			<minLength value="1"/>
+			<maxLength value="6"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="RegelingKenmerk">
+		<annotation>
+			<documentation>Een door de PUO aan een door de werkgever afgenomen pakket van producten toegekend kenmerk.</documentation>
+		</annotation>
+		<restriction base="upa:NonEmptyString">
+			<maxLength value="15"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="Personeelsnummer">
+		<restriction base="string"/>
+	</simpleType>
+	<simpleType name="RegelingVariant">
+		<annotation>
+			<documentation>Een variant van een regeling die is toegespitst op een bepaalde doelgroep (klanten).</documentation>
+			<documentation>Per variant kan een collectieve regeling gelden.</documentation>
+		</annotation>
+		<restriction base="upa:NonEmptyString">
+			<maxLength value="5"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="RelatieNummer">
+		<annotation>
+			<documentation>Het (relatie)nummer waaronder de inhoudingsplichtige - geheel of gedeeltelijk - bekend is bij het fonds of de uitvoeringsorganisatie.</documentation>
+		</annotation>
+		<restriction base="upa:NonEmptyString">
+			<maxLength value="35"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="TijdvakCodeMaand">
+		<annotation>
+			<documentation>Unieke code die de Belastingdienst toekent aan het aangiftetijdvak.</documentation>
+		</annotation>
+		<restriction base="string">
+			<enumeration value="5010">
+				<annotation>
+					<documentation>2015, maand 1</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="5020">
+				<annotation>
+					<documentation>2015, maand 2</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="5030">
+				<annotation>
+					<documentation>2015, maand 3</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="5040">
+				<annotation>
+					<documentation>2015, maand 4</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="5050">
+				<annotation>
+					<documentation>2015, maand 5</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="5060">
+				<annotation>
+					<documentation>2015, maand 6</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="5070">
+				<annotation>
+					<documentation>2015, maand 7</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="5080">
+				<annotation>
+					<documentation>2015, maand 8</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="5090">
+				<annotation>
+					<documentation>2015, maand 9</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="5100">
+				<annotation>
+					<documentation>2015, maand 10</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="5110">
+				<annotation>
+					<documentation>2015, maand 11</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="5120">
+				<annotation>
+					<documentation>2015, maand 12</documentation>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<simpleType name="TijdvakCodePeriode">
+		<annotation>
+			<documentation>Unieke code die de Belastingdienst toekent aan het aangiftetijdvak.</documentation>
+		</annotation>
+		<restriction base="string">
+			<enumeration value="5710">
+				<annotation>
+					<documentation>2015, periode 1</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="5720">
+				<annotation>
+					<documentation>2015, periode 2</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="5730">
+				<annotation>
+					<documentation>2015, periode 3</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="5740">
+				<annotation>
+					<documentation>2015, periode 4</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="5750">
+				<annotation>
+					<documentation>2015, periode 5</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="5760">
+				<annotation>
+					<documentation>2015, periode 6</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="5770">
+				<annotation>
+					<documentation>2015, periode 7</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="5780">
+				<annotation>
+					<documentation>2015, periode 8</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="5790">
+				<annotation>
+					<documentation>2015, periode 9</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="5800">
+				<annotation>
+					<documentation>2015, periode 10</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="5810">
+				<annotation>
+					<documentation>2015, periode 11</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="5820">
+				<annotation>
+					<documentation>2015, periode 12</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="5830">
+				<annotation>
+					<documentation>2015, periode 13</documentation>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<simpleType name="TijdvakCodeHalfjaarlijks">
+		<annotation>
+			<documentation>Unieke code die de Belastingdienst toekent aan het aangiftetijdvak.</documentation>
+		</annotation>
+		<restriction base="string">
+			<enumeration value="5310">
+				<annotation>
+					<documentation>1e halfjaar binnenschipper</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="5320">
+				<annotation>
+					<documentation>2e halfjaar binnenschipper</documentation>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<simpleType name="TijdvakCodeHuisPersoneel">
+		<annotation>
+			<documentation>Unieke code die de Belastingdienst toekent aan het aangiftetijdvak.</documentation>
+		</annotation>
+		<restriction base="string">
+			<enumeration value="5400">
+				<annotation>
+					<documentation>Jaar (huispersoneel)</documentation>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<simpleType name="TijdvakCodeMeewerkendeKinderen">
+		<restriction base="string">
+			<enumeration value="5400">
+				<annotation>
+					<documentation>Jaar (meewerkende kinderen)</documentation>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<simpleType name="TijdvakCode">
+		<union memberTypes="upa:TijdvakCodeMaand upa:TijdvakCodePeriode upa:TijdvakCodeHalfjaarlijks upa:TijdvakCodeHuisPersoneel upa:TijdvakCodeMeewerkendeKinderen"/>
+	</simpleType>
+	<simpleType name="VerbijzonderingInkomstenverhoudingsCode">
+		<annotation>
+			<documentation>Geeft wisselende situaties van de deelnemer aan binnen diens inkomstenverhouding.</documentation>
+		</annotation>
+		<restriction base="string">
+			<enumeration value="FLO">
+				<annotation>
+					<documentation>Functioneel leeftijdsontslag</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="BBL">
+				<annotation>
+					<documentation>Beroep begeleidende leerweg</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="WAP">
+				<annotation>
+					<documentation>Wachtgeld of Activeringsregeling Privaat</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="WVO">
+				<annotation>
+					<documentation>Ombudsman</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="WGP">
+				<annotation>
+					<documentation>Politieke functie</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="WVN">
+				<annotation>
+					<documentation>Functie bij EG, NAVO of VN</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="WVA">
+				<annotation>
+					<documentation>Werkzaam op Aruba of Nederlandse Antillen</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="ULK">
+				<annotation>
+					<documentation>Vakantieregeling BRD Urlaubs- und lohnausgleichkasse</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="WIA">
+				<annotation>
+					<documentation>Arbeidsongeschikt, geen bijzonderheden</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="SUP">
+				<annotation>
+					<documentation>Suppletie</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="RIA">
+				<annotation>
+					<documentation>ReÃ¯ntegratie</documentation>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<simpleType name="BeroepsCode">
+		<annotation>
+			<documentation>De code die aangeeft welk beroep de natuurlijk persoon uitoefent. </documentation>
+		</annotation>
+		<restriction base="string">
+			<maxLength value="8"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="Functieomschrijving">
+		<annotation>
+			<documentation>Een omschrijving die aangeeft welk beroep de medewerker uitoefent. </documentation>
+		</annotation>
+		<restriction base="upa:NonEmptyString">
+			<maxLength value="100"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="Percentage">
+		<annotation>
+			<documentation>Een standaard formaat voor opgave van een percentage</documentation>
+		</annotation>
+		<restriction base="decimal">
+			<totalDigits value="5"/>
+			<fractionDigits value="2"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="UrenSpecificatieIndividueel">
+		<annotation>
+			<documentation>Een standaard formaat voor opgave van een aantal uren, voor een individu. 0 tot 2 cijfers achter de komma, komma is optioneel. Altijd 1 decimaal voor de komma.</documentation>
+		</annotation>
+		<restriction base="decimal">
+			<totalDigits value="6"/>
+			<fractionDigits value="2"/>
+			<maxInclusive value="9999.99"/>
+			<minInclusive value="0"/>
+			<pattern value="\d{1,4}(\.(\d{2}|\d{1}|))?"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="UrenSpecificatieIndividueelNeg">
+		<annotation>
+			<documentation>Een standaard formaat voor opgave van een aantal uren, voor een individu. 0 tot 2 cijfers achter de komma, komma is optioneel. Altijd 1 decimaal voor de komma.</documentation>
+		</annotation>
+		<restriction base="decimal">
+			<totalDigits value="6"/>
+			<fractionDigits value="2"/>
+			<maxInclusive value="9999.99"/>
+			<minInclusive value="-9999.99"/>
+			<pattern value="-{0,1}\d{1,4}(\.(\d{2}|\d{1}|))?"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="UrenSpecificatieNorm">
+		<annotation>
+			<documentation>Een standaard formaat voor opgave van een aantal uren, voor een individu. 0 tot 2 cijfers achter de komma, komma is optioneel. Altijd 1 decimaal voor de komma.</documentation>
+		</annotation>
+		<restriction base="decimal">
+			<totalDigits value="6"/>
+			<fractionDigits value="2"/>
+			<maxInclusive value="9999.99"/>
+			<minExclusive value="0.00"/>
+			<pattern value="\d{1,4}(\.(\d{2}|\d{1}|))?"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="UrenSpecificatieCollectief">
+		<annotation>
+			<documentation>Een standaard formaat voor opgave van een aantal uren, met (of zonder) twee decimalen voor een collectief. 0 tot 2 cijfers achter de komma, komma is optioneel. Altijd 1 decimaal voor de komma.</documentation>
+		</annotation>
+		<restriction base="decimal">
+			<totalDigits value="10"/>
+			<fractionDigits value="2"/>
+			<maxInclusive value="99999999.99"/>
+			<minInclusive value="-99999999.99"/>
+			<pattern value="-{0,1}\d{1,8}(\.\d{0,2})?"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="LoonSpecificatieIndividueel">
+		<annotation>
+			<documentation>Een algemeen formaat voor geldbedragen, zoals loon, voor een individu. Of 2 of geen cijfers achter de komma, komma is optioneel. Altijd 1 decimaal voor de komma.</documentation>
+		</annotation>
+		<restriction base="decimal">
+			<totalDigits value="10"/>
+			<fractionDigits value="2"/>
+			<maxInclusive value="99999999.99"/>
+			<minInclusive value="-99999999.99"/>
+			<pattern value="-{0,1}\d{1,8}(\.\d{0,2})?"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="LoonSpecificatieCollectief">
+		<annotation>
+			<documentation>Een algemeen formaat voor geldbedragen, zoals loon, voor een collectief. Of 2 of geen cijfers achter de komma, komma is optioneel. Altijd 1 decimaal voor de komma.</documentation>
+		</annotation>
+		<restriction base="decimal">
+			<totalDigits value="16"/>
+			<fractionDigits value="2"/>
+			<maxInclusive value="99999999999999.99"/>
+			<minInclusive value="-99999999999999.99"/>
+			<pattern value="-{0,1}\d{1,14}(\.\d{0,2})?"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="ParttimeSpecificatie">
+		<restriction base="decimal">
+			<totalDigits value="5"/>
+			<fractionDigits value="2"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="Nationaliteit">
+		<annotation>
+			<documentation>De nationaliteit waarmee de natuurlijke persoon zich bij de inhoudingsplichtige heeft geÃ¯dentificeerd.</documentation>
+			<documentation>Hier is een codelijst van, beschikbaar op: www.oswo.nl/cso.</documentation>
+		</annotation>
+		<restriction base="nonNegativeInteger">
+			<totalDigits value="4"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="CodeRedenEindeInkomstenverhouding">
+		<annotation>
+			<documentation>Code die de reden van het einde van een inkomstenverhouding aangeeft (overlijden, ontslag, arbeidsongeschiktheid en alle overige redenen)</documentation>
+		</annotation>
+		<restriction base="nonNegativeInteger">
+			<enumeration value="1">
+				<annotation>
+					<documentation>Overlijden</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="2">
+				<annotation>
+					<documentation>Arbeidsongeschikt</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="3">
+				<annotation>
+					<documentation>Vrijwillig ontslag/Einde contract</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="4">
+				<annotation>
+					<documentation>Gedwongen ontslag</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="5">
+				<annotation>
+					<documentation>Pensionering</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="6">
+				<annotation>
+					<documentation>Vervroegde uittreding, overbruggingsuitkering of Flexpensioen</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="8">
+				<annotation>
+					<documentation>Einde administratieve eenheid</documentation>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<simpleType name="CdRdnEindArbov">
+		<annotation>
+			<documentation>Code die de reden van het einde van een arbeidsovereenkomst aangeeft</documentation>
+		</annotation>
+		<restriction base="string">
+			<enumeration value="01">
+				<annotation>
+					<documentation>Opzegging door de werkgever binnen de proeftijd</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="03">
+				<annotation>
+					<documentation>Ontbinding door rechter op verzoek van de werkgever</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="04">
+				<annotation>
+					<documentation>Beëindiging arbeidsovereenkomst met wederzijds goedvinden op initiatief van de werkgever</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="20">
+				<annotation>
+					<documentation>Einde arbeidsovereenkomst door opzegging werknemer, door toedoen werknemer of op initiatief van de werknemer</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="21">
+				<annotation>
+					<documentation>Opzegging door werkgever om dringende reden (ontslag op staande voet)</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="30">
+				<annotation>
+					<documentation>Einde van rechtswege vanwege verstrijken duur arbeidsovereenkomst voor bepaalde tijd</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="31">
+				<annotation>
+					<documentation>Einde van rechtswege, om een andere reden (intreden ontbindende voorwaarde, pensionering, overlijden, e.d.)</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="40">
+				<annotation>
+					<documentation>Einde uitzendovereenkomst, inroepen uitzendbeding door inlener vanwege ziekte uitzendkracht</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="41">
+				<annotation>
+					<documentation>Einde uitzendovereenkomst, inroepen uitzendbeding door inlener om een andere reden</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="80">
+				<annotation>
+					<documentation>Arbeidsongeschiktheid met toestemming van UWV</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="81">
+				<annotation>
+					<documentation>Bedrijfseconomische reden met toestemming van UWV</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="90">
+				<annotation>
+					<documentation>De arbeidsovereenkomst loopt door, maar de inkomstenverhouding is administratief beëindigd</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="99">
+				<annotation>
+					<documentation>Een andere, hiervoor niet genoemde reden</documentation>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<simpleType name="SoortVerlof">
+		<restriction base="string">
+			<enumeration value="LLP">
+				<annotation>
+					<documentation>Levensloopverlof</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="OSP">
+				<annotation>
+					<documentation>Ouderschapsverlof</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="OBD">
+				<annotation>
+					<documentation>Onbetaald verlof</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="SBL">
+				<annotation>
+					<documentation>Sabbatical leave</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="STV">
+				<annotation>
+					<documentation>Studieverlof</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="ONB">
+				<annotation>
+					<documentation>Onbekend</documentation>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<simpleType name="BSN">
+		<annotation>
+			<documentation>
+        BSN-nummer, dat voldoet aan de 11-proef. Stond eerder bekend als
+        Sofi-nummer, maar is functioneel gelijk.
+      </documentation>
+		</annotation>
+		<restriction base="nonNegativeInteger">
+			<totalDigits value="9"/>
+			<pattern value="([1-9]\d\d|\d[1-9]\d|\d\d[1-9])(\d{6})"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="Geslacht">
+		<annotation>
+			<documentation>CODE die het geslacht van een NATUURLIJK PERSOON aangeeft.</documentation>
+		</annotation>
+		<restriction base="nonNegativeInteger">
+			<enumeration value="0">
+				<annotation>
+					<documentation>Onbekend</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="1">
+				<annotation>
+					<documentation>Mannelijk</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="2">
+				<annotation>
+					<documentation>Vrouwelijk</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="9">
+				<annotation>
+					<documentation>Niet gespecificeerd</documentation>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<simpleType name="BurgerlijkeStaat">
+		<annotation/>
+		<restriction base="nonNegativeInteger">
+			<enumeration value="0">
+				<annotation>
+					<documentation>Onbekend</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="1">
+				<annotation>
+					<documentation>Ongehuwd en nooit gehuwd geweest</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="2">
+				<annotation>
+					<documentation>Gehuwd</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="3">
+				<annotation>
+					<documentation>Gescheiden</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="4">
+				<annotation>
+					<documentation>Weduwe/weduwnaar</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="5">
+				<annotation>
+					<documentation>Partnerschap</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="6">
+				<annotation>
+					<documentation>Partnerschap beeindigd</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="7">
+				<annotation>
+					<documentation>Achtergebleven partner</documentation>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<simpleType name="EmailAdres">
+		<annotation/>
+		<restriction base="upa:NonEmptyString">
+			<maxLength value="200"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="Bankrekening">
+		<annotation>
+			<documentation>Bewust geen syntax validatie van een IBAN of ander bankrekeningnummer</documentation>
+		</annotation>
+		<restriction base="upa:NonEmptyString">
+			<maxLength value="34"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="PostcodeNederland">
+		<annotation/>
+		<restriction base="string">
+			<length value="6"/>
+			<pattern value="[1-9][0-9]{3}[A-Z]{2}"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="Landcode">
+		<annotation>
+			<documentation>De code van een huidig land of gebiedsdeel conform ISO 3166-1.</documentation>
+		</annotation>
+		<restriction base="string">
+			<length value="2"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="GeboorteDatum">
+		<annotation>
+			<documentation>Datum waarop de natuurlijke persoon is geboren.</documentation>
+		</annotation>
+		<restriction base="date"/>
+	</simpleType>
+	<simpleType name="Telefoonnummer">
+		<annotation>
+			<documentation>
+        Format voor een algemeen telefoonnummer (niet specifiek nederlands), zonder opmaak
+      </documentation>
+			<documentation>Voor buitenlandse telefoonnummers moet in plaats van de twee voorloopnullen een "+" opgegeven worden. </documentation>
+			<documentation>Verder mag de rubriek alleen cijfers bevatten.</documentation>
+			<documentation>De waarde mag anders zijn dan de waarde die ingevuld wordt bij de Loonaangifte.</documentation>
+		</annotation>
+		<restriction base="string">
+			<maxLength value="25"/>
+		</restriction>
+	</simpleType>
+	<simpleType name="InvloedVerzekeringsplicht">
+		<annotation/>
+		<restriction base="string">
+			<enumeration value="A">
+				<annotation>
+					<documentation>Echtgenoot of familie van de eigenaar of van de DGA</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="B">
+				<annotation>
+					<documentation>Vorige Eigenaar</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="D">
+				<annotation>
+					<documentation>Oproep-/invalkracht zonder verplichting om te komen</documentation>
+				</annotation>
+			</enumeration>
+			<enumeration value="E">
+				<annotation>
+					<documentation>Oproep-/invalkracht met verplichting om te komen</documentation>
+				</annotation>
+			</enumeration>
+		</restriction>
+	</simpleType>
+	<simpleType name="Straat">
+		<restriction base="upa:NonEmptyString">
+			<maxLength value="24"/>
+		</restriction>
+	</simpleType>
+	<complexType name="AdresBinnenlandType">
+		<annotation/>
+		<sequence>
+			<element name="Str" type="upa:Straat">
+				<annotation>
+					<documentation>De officiÃ«le door de gemeente vastgestelde naam van een straat.</documentation>
+				</annotation>
+			</element>
+			<element name="HuisNr" minOccurs="0">
+				<annotation>
+					<documentation>De numerieke aanduiding zoals deze door de gemeente aan het object is toegekend</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="nonNegativeInteger">
+						<totalDigits value="5"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="HuisNrToev" minOccurs="0">
+				<annotation>
+					<documentation>De alfanumerieke aanduiding achter het HUISNUMMER, zoals toegekend door de gemeente.</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="string">
+						<maxLength value="4"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="LocOms" minOccurs="0">
+				<annotation>
+					<documentation>Een nadere aanduiding bij de straatnaam en â indien aanwezig â het huisnummer.</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="string">
+						<maxLength value="35"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="Pc" type="upa:PostcodeNederland">
+				<annotation>
+					<documentation>De codering van een Nederlands postadres.</documentation>
+				</annotation>
+			</element>
+			<element name="Woonpl">
+				<annotation>
+					<documentation>De door de gemeente vastgestelde naam van een woonplaats.</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="string">
+						<maxLength value="24"/>
+					</restriction>
+				</simpleType>
+			</element>
+		</sequence>
+	</complexType>
+	<complexType name="AdresBuitenlandType">
+		<sequence>
+			<element name="Str" type="upa:Straat">
+				<annotation>
+					<documentation>De naam van een straat in het buitenland.</documentation>
+				</annotation>
+			</element>
+			<element name="HuisNr" minOccurs="0">
+				<annotation>
+					<documentation>De aanduiding van een (deel van een) pand in het buitenland.</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="string">
+						<maxLength value="9"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="LocOms" minOccurs="0">
+				<annotation>
+					<documentation>Een nadere aanduiding bij een buitenlands adres.</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="string">
+						<maxLength value="35"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="Pc" minOccurs="0">
+				<annotation>
+					<documentation>De door een buitenlandse postdienst vastgestelde codering van een adres in het buitenland.</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="string">
+						<maxLength value="9"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="Woonpl">
+				<annotation>
+					<documentation>De naam van een woonplaats in het buitenland.</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="string">
+						<maxLength value="24"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="Reg" minOccurs="0">
+				<annotation>
+					<documentation>De naam van een gebiedsdeel binnen een land.</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="string">
+						<maxLength value="24"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="LandCd" type="upa:Landcode">
+				<annotation>
+					<documentation>De code van een huidig land of gebiedsdeel conform ISO 3166-1.</documentation>
+				</annotation>
+			</element>
+		</sequence>
+	</complexType>
+	<complexType name="PartnerNatuurlijkPersoonType">
+		<sequence>
+			<element name="NmPnr" type="upa:Achternaam"/>
+			<element name="VoorvPnr" type="upa:Voorvoegsel" minOccurs="0"/>
+			<element name="VoorlPnr" type="upa:Voorletters" minOccurs="0"/>
+			<element name="GeslPnr" type="upa:Geslacht"/>
+		</sequence>
+	</complexType>
+	<complexType name="NatuurlijkPersoonType">
+		<sequence>
+			<element name="SofiNr" type="upa:BSN" minOccurs="0">
+				<annotation>
+					<documentation>BSN: Een door de Gemeente aan een natuurlijk persoon toegekend uniek administratief nummer.</documentation>
+					<documentation>Sofinummer: Een door de Belastingdienst aan een natuurlijk persoon toegekend uniek administratief nummer.</documentation>
+					<documentation>Opmerking: De rubriek BSN/sofinummer moet worden gevuld met het Burgerservicenummer of bij het ontbreken ervan met het sofinummer.</documentation>
+				</annotation>
+			</element>
+			<element name="Voorl" type="upa:Voorletters" minOccurs="0"/>
+			<element name="Voorv" type="upa:Voorvoegsel" minOccurs="0"/>
+			<element name="SignNm" type="upa:Achternaam"/>
+			<element name="Gebdat" type="upa:GeboorteDatum"/>
+			<element name="Nat" type="upa:Nationaliteit" minOccurs="0"/>
+			<element name="Gesl" type="upa:Geslacht"/>
+			<element name="DatOvl" type="date" minOccurs="0">
+				<annotation>
+					<documentation>Datum waarop de natuurlijke persoon overleden is.</documentation>
+					<documentation>Dit gegeven is opgenomen in het bericht om ook voor medewerkers uit het buitenland die niet zijn opgenomen in de Gemeentelijke BasisAdministratie informatie te ontvangen over het overlijden.</documentation>
+				</annotation>
+			</element>
+			<element name="CdBurgSt" type="upa:BurgerlijkeStaat" minOccurs="0">
+				<annotation>
+					<documentation>Code die de burgerlijke staat van een natuurlijk persoon aangeeft, zoals deze geldt aan het einde van het tijdvak. </documentation>
+				</annotation>
+			</element>
+			<element name="DtIngBurgSt" type="date" minOccurs="0">
+				<annotation>
+					<documentation>De datum van de eerste dag van de periode waarvoor de burgerlijke staat van de natuurlijk persoon geldt.</documentation>
+				</annotation>
+			</element>
+			<element name="Email" type="upa:EmailAdres" minOccurs="0">
+				<annotation>
+					<documentation>Het persoonlijk e-mailadres van de werknemer</documentation>
+				</annotation>
+			</element>
+			<element name="RekNr" type="upa:Bankrekening" minOccurs="0">
+				<annotation>
+					<documentation>Het bankrekeningnummer waarop de werknemer zijn salaris ontvangt.</documentation>
+				</annotation>
+			</element>
+			<choice>
+				<annotation>
+					<documentation>
+            Er wordt OF een binnenlands OF een buitenlands adres
+            verwacht
+          </documentation>
+				</annotation>
+				<element name="AdresBinnenland" type="upa:AdresBinnenlandType" minOccurs="0"/>
+				<element name="AdresBuitenland" type="upa:AdresBuitenlandType" minOccurs="0"/>
+			</choice>
+			<element name="PartnerNatuurlijkPersoon" type="upa:PartnerNatuurlijkPersoonType" minOccurs="0"/>
+		</sequence>
+	</complexType>
+	<complexType name="VolledigeAangifteType">
+		<sequence>
+			<element name="CollectieveAangifte" type="upa:CollectieveAangifteType"/>
+			<element name="InkomstenverhoudingInitieel" type="upa:InkomstenverhoudingInitieelType" minOccurs="0" maxOccurs="unbounded"/>
+		</sequence>
+	</complexType>
+	<complexType name="AanvullendeAangifteType">
+		<sequence>
+			<element name="CollectieveAangifte" type="upa:CollectieveAangifteType"/>
+			<element name="InkomstenverhoudingInitieel" type="upa:InkomstenverhoudingInitieelType" minOccurs="0" maxOccurs="unbounded"/>
+			<element name="InkomstenverhoudingIntrekking" type="upa:InkomstenverhoudingIntrekkingType" minOccurs="0" maxOccurs="unbounded"/>
+		</sequence>
+	</complexType>
+	<complexType name="AdministratieveEenheidType">
+		<sequence>
+			<element name="LhNr" type="upa:LoonheffingenNummer"/>
+			<element name="NmIP">
+				<annotation>
+					<documentation>De naam van de inhoudingsplichtige zoals die door de Belastingdienst aan hem is medegedeeld</documentation>
+					<documentation>in de aangiftebrief waarin de aangifte- en betaaldata bekend zijn gemaakt.</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="upa:NonEmptyString">
+						<maxLength value="200"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="TvkCd" type="upa:CodeSoortTijdvak" minOccurs="1" maxOccurs="1"/>
+			<choice>
+				<sequence>
+					<element name="TijdvakAangifte" maxOccurs="1">
+						<complexType>
+							<sequence>
+								<element name="DatAanvTv" type="date"/>
+								<element name="DatEindTv" type="date"/>
+								<choice>
+									<element name="VolledigeAangifte" type="upa:VolledigeAangifteType"/>
+									<element name="AanvullendeAangifte" type="upa:AanvullendeAangifteType"/>
+								</choice>
+							</sequence>
+						</complexType>
+					</element>
+					<element name="TijdvakCorrectie" type="upa:TijdvakCorrectieType" minOccurs="0" maxOccurs="13"/>
+				</sequence>
+				<sequence>
+					<element name="TijdvakCorrectie" type="upa:TijdvakCorrectieType" maxOccurs="13"/>
+				</sequence>
+			</choice>
+		</sequence>
+	</complexType>
+	<complexType name="TotaalRegelingType">
+		<sequence>
+			<element name="RelNrAansl" type="upa:RelatieNummer" minOccurs="0"/>
+			<element name="RegKnmrk" type="upa:RegelingKenmerk"/>
+			<element name="RegVrnt" type="upa:RegelingVariant" minOccurs="0"/>
+			<element name="TotRegLn" type="upa:LoonSpecificatieCollectief">
+				<annotation>
+					<documentation>Het totaal bedrag pensioengevend loon / verzekerd bedrag voor de betreffende regeling(variant). </documentation>
+					<documentation>Kent een regelingspecifieke invulling. Het totaal regelingloon heeft betrekking op het verloonde tijdvak.</documentation>
+				</annotation>
+			</element>
+			<element name="TotGrslPremie" type="upa:LoonSpecificatieCollectief">
+				<annotation>
+					<documentation>Het totaal bedrag dat de grondslag vormt voor het vaststellen van de premie voor de betreffende regeling(variant). </documentation>
+					<documentation>Het totaal premiegrondslag heeft betrekking op het verloonde tijdvak.</documentation>
+				</annotation>
+			</element>
+			<element name="TotPremieReg" type="upa:LoonSpecificatieCollectief">
+				<annotation>
+					<documentation>Het totaal bedrag premie voor deze regeling(variant). </documentation>
+					<documentation>Het totaal bedrag premie voor regeling heeft betrekking op het verloonde tijdvak.</documentation>
+				</annotation>
+			</element>
+			<element name="TotAantVerlUReg" type="upa:UrenSpecificatieCollectief">
+				<annotation>
+					<documentation>Het totaal aantal verloonde uren voor deze regeling(variant). </documentation>
+					<documentation>Het totaal verloonde uren voor regeling heeft betrekking op het verloonde tijdvak.</documentation>
+				</annotation>
+			</element>
+			<element name="TotIkvReg" type="upa:ControleTeller" minOccurs="0">
+				<annotation>
+					<documentation>Het aantal inkomstenverhoudingen dat deelneemt aan deze regeling(variant). </documentation>
+					<documentation>Het totaal aantal inkomstenverhoudingen heeft betrekking op het verloonde tijdvak.</documentation>
+				</annotation>
+			</element>
+		</sequence>
+	</complexType>
+	<complexType name="TijdvakCorrectieType">
+		<sequence>
+			<element name="DatAanvTv" type="date"/>
+			<element name="DatEindTv" type="date"/>
+			<element name="CollectieveAangifte">
+				<complexType>
+					<sequence>
+						<element name="TotaalRegelingen" type="upa:TotaalRegelingType" minOccurs="0" maxOccurs="unbounded"/>
+					</sequence>
+				</complexType>
+			</element>
+			<element name="InkomstenverhoudingInitieel" type="upa:InkomstenverhoudingInitieelType" minOccurs="0" maxOccurs="unbounded"/>
+			<element name="InkomstenverhoudingIntrekking" type="upa:InkomstenverhoudingIntrekkingType" minOccurs="0" maxOccurs="unbounded"/>
+		</sequence>
+	</complexType>
+	<complexType name="SaldoCorrectiesVoorgaandAangifteTijdvakType">
+		<annotation/>
+		<sequence>
+			<element name="DatAanvTv" type="date"/>
+			<element name="DatEindTv" type="date"/>
+			<element name="SaldoCorrectiesRegelingen" maxOccurs="unbounded">
+				<complexType>
+					<sequence>
+						<element name="RelNrAansl" type="upa:RelatieNummer" minOccurs="0"/>
+						<element name="RegKnmrk" type="upa:RegelingKenmerk"/>
+						<element name="RegVrnt" type="upa:RegelingVariant" minOccurs="0"/>
+						<element name="SaldoPremieReg" type="upa:LoonSpecificatieCollectief">
+							<annotation>
+								<documentation>Het saldo bedrag premie voor de betreffende regeling(variant) door correcties in een voorgaand tijdvak opgenomen in deze aangifte.</documentation>
+							</annotation>
+						</element>
+					</sequence>
+				</complexType>
+			</element>
+		</sequence>
+	</complexType>
+	<complexType name="CollectieveAangifteType">
+		<sequence>
+			<element name="TotaalRegelingen" type="upa:TotaalRegelingType" minOccurs="0" maxOccurs="unbounded"/>
+			<element name="SaldoCorrectiesVoorgaandAangifteTijdvak" type="upa:SaldoCorrectiesVoorgaandAangifteTijdvakType" minOccurs="0" maxOccurs="unbounded"/>
+		</sequence>
+	</complexType>
+	<complexType name="WerknemersgegevensType">
+		<sequence>
+			<element name="LnUBruto" type="upa:LoonSpecificatieIndividueel">
+				<annotation>
+					<documentation>Het uurloon is een bruto herleide loon eenheid per uur conform de arbeidsovereenkomst. </documentation>
+				</annotation>
+			</element>
+			<element name="LnLbPh" type="upa:LoonSpecificatieIndividueel">
+				<annotation>
+					<documentation>Het loon waarover de loonbelasting/premie volksverzekeringen wordt berekend.</documentation>
+				</annotation>
+			</element>
+			<element name="LnSV" type="upa:LoonSpecificatieIndividueel"/>
+			<element name="LnTabBB" type="upa:LoonSpecificatieIndividueel">
+				<annotation>
+					<documentation>Dat deel van het Loon LB/PH dat is belast onder toepassing van de tabel bijzondere beloningen.</documentation>
+				</annotation>
+			</element>
+			<element name="VakBsl" type="upa:LoonSpecificatieIndividueel">
+				<annotation>
+					<documentation>Het bruto bedrag dat aan vakantiebijslag is uitbetaald in het tijdvak.</documentation>
+				</annotation>
+			</element>
+			<element name="OpgRchtVakBsl" type="upa:LoonSpecificatieIndividueel">
+				<annotation>
+					<documentation>Het bruto bedrag dat aan rechten op vakantiebijslag is opgebouwd in het tijdvak.</documentation>
+				</annotation>
+			</element>
+			<element name="ExtrSal" type="upa:LoonSpecificatieIndividueel">
+				<annotation>
+					<documentation>Het bruto bedrag dat naast het loon en vakantiegeld is uitbetaald in het tijdvak naar aanleiding van afspraken in de (individuele of collectieve) arbeidsovereenkomst.</documentation>
+				</annotation>
+			</element>
+			<element name="OpgRchtExtrSal" type="upa:LoonSpecificatieIndividueel">
+				<annotation>
+					<documentation>
+            Het bruto bedrag dat aan rechten op vaste vergoedingen naast het loon en
+            vakantiegeld is opgebouwd in het tijdvak naar aanleiding van afspraken in de
+            (individuele of collectieve) arbeidsovereenkomst.
+          </documentation>
+				</annotation>
+			</element>
+			<element name="LnInGld" type="upa:LoonSpecificatieIndividueel">
+				<annotation>
+					<documentation>Het bedrag loon in geld zoals vermeld in kolom 3 van de loonstaat.</documentation>
+				</annotation>
+			</element>
+			<element name="LnOwrk" type="upa:LoonSpecificatieIndividueel">
+				<annotation>
+					<documentation>Het (bruto) bedrag dat aan loon is uitbetaald in verband met overwerk.</documentation>
+				</annotation>
+			</element>
+			<element name="AantVerlU">
+				<annotation>
+					<documentation>Het aantal uren dat aan de werknemer voor de inkomstenverhouding in het aangiftetijdvak is verloond.</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="integer">
+						<minInclusive value="-99999"/>
+						<maxInclusive value="99999"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="Prov" type="upa:LoonSpecificatieIndividueel">
+				<annotation>
+					<documentation>Het (bruto) bedrag provisie waarmee rekening is gehouden bij de berekeningen voor de betreffende regeling. </documentation>
+					<documentation>De geleverde provisie heeft betrekking op het verloonde tijdvak.</documentation>
+				</annotation>
+			</element>
+			<element name="OnrTsl" type="upa:LoonSpecificatieIndividueel">
+				<annotation>
+					<documentation>Het totale bruto bedrag van de onregelmatigheidstoeslag componenten waarmee rekening is gehouden bij de berekeningen voor de betreffende regeling. </documentation>
+					<documentation>De geleverde onregelmatigheidstoeslag heeft betrekking op het verloonde tijdvak.</documentation>
+				</annotation>
+			</element>
+			<element name="DagLoon" minOccurs="0">
+				<complexType>
+					<sequence>
+						<element name="Dgln" type="upa:LoonSpecificatieIndividueel">
+							<annotation>
+								<documentation>dagloon</documentation>
+								<documentation>Het bruto bedrag dat X maal (aantal dagen) per dag is uitbetaald binnen het tijdvak</documentation>
+							</annotation>
+						</element>
+						<element name="AantDgGew">
+							<annotation>
+								<documentation>Het aantal dagen dat het bijbehorende dagloon is uitbetaald binnen het tijdvak,</documentation>
+								<documentation>waarmee rekening is gehouden bij de berekeningen voor deze regeling. </documentation>
+							</annotation>
+							<simpleType>
+								<restriction base="nonNegativeInteger">
+									<maxInclusive value="999"/>
+								</restriction>
+							</simpleType>
+						</element>
+					</sequence>
+				</complexType>
+			</element>
+			<element name="Verlof" minOccurs="0" maxOccurs="unbounded">
+				<complexType>
+					<sequence>
+						<element name="CdSrtVerl" type="upa:SoortVerlof">
+							<annotation>
+								<documentation>soortVerlof</documentation>
+								<documentation>Aanduiding van het verlof waarmee rekening is gehouden bij het vaststellen van de premie voor de betreffende regeling in deze periode.</documentation>
+							</annotation>
+						</element>
+						<choice>
+							<element name="UrenVerl" type="upa:UrenSpecificatieIndividueelNeg" minOccurs="0">
+								<annotation>
+									<documentation>Aantal uren verlof waarmee rekening is gehouden bij de berekeningen voor deze regeling.</documentation>
+								</annotation>
+							</element>
+							<element name="PercVerl" minOccurs="0">
+								<annotation>
+									<documentation>percentage verlof</documentation>
+									<documentation>Het percentage dat een werknemer verlof heeft ten opzichte van het overeengekomen aantal contracturen.</documentation>
+								</annotation>
+								<simpleType>
+									<restriction base="decimal">
+										<totalDigits value="5"/>
+										<fractionDigits value="2"/>
+									</restriction>
+								</simpleType>
+							</element>
+						</choice>
+					</sequence>
+				</complexType>
+			</element>
+		</sequence>
+	</complexType>
+	<complexType name="RegelingGegevensType">
+		<sequence>
+			<element name="DatAanvRegGeg" type="date">
+				<annotation>
+					<documentation>Geeft aan vanaf welk moment de premie is berekend.</documentation>
+				</annotation>
+			</element>
+			<element name="DatEindRegGeg" type="date" minOccurs="0">
+				<annotation>
+					<documentation>Geeft aan tot en met welk moment de werknemer binnen het tijdvak deelneemt aan de regeling.</documentation>
+				</annotation>
+			</element>
+			<element name="RelNrAansl" minOccurs="0">
+				<annotation>
+					<documentation>Het (relatie)nummer waaronder de inhoudingsplichtige - geheel of gedeeltelijk - bekend is bij het fonds of de uitvoeringsorganisatie.</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="string">
+						<maxLength value="35"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="RegKnmrk" type="upa:RegelingKenmerk">
+				<annotation>
+					<documentation>Een kenmerk van het door de werkgever afgenomen (pakket van) regelingen.</documentation>
+				</annotation>
+			</element>
+			<element name="RegVrnt" type="upa:RegelingVariant" minOccurs="0">
+				<annotation>
+					<documentation>Een variant van een regeling.</documentation>
+				</annotation>
+			</element>
+			<element name="RegLn" type="upa:LoonSpecificatieIndividueel">
+				<annotation>
+					<documentation>RegelingLoon</documentation>
+					<documentation>Het bruto salaris dat meetelt voor de pensioenopbouw. </documentation>
+					<documentation>Regelingloon kent een specifieke invulling per regeling. </documentation>
+					<documentation>Per regeling wordt aangegeven of het in deze periode verloonde loon moet worden opgegeven of het jaarloon op een bepaalde peildatum</documentation>
+				</annotation>
+			</element>
+			<element name="PremieGrslg" type="upa:LoonSpecificatieIndividueel">
+				<annotation>
+					<documentation>premiegrondslag</documentation>
+					<documentation>De premiegrondslag wordt berekend volgens het reglement van de regeling (franchise, maximering, deeltijd, e.d.).</documentation>
+				</annotation>
+			</element>
+			<element name="PremieTot" type="upa:LoonSpecificatieIndividueel">
+				<annotation>
+					<documentation>premie voor regeling (totaal)</documentation>
+					<documentation>Door werkgever berekende premie voor deze regeling.</documentation>
+				</annotation>
+			</element>
+			<element name="PremieWkn" type="upa:LoonSpecificatieIndividueel">
+				<annotation>
+					<documentation>Premie voor regeling (werknemerdeel)</documentation>
+					<documentation>Het deel van de door de werkgever berekende premie voor deze regeling dat is ingehouden op het salaris van de deelnemer.</documentation>
+				</annotation>
+			</element>
+			<element name="AantVerlUPens" type="upa:UrenSpecificatieIndividueelNeg">
+				<annotation>
+					<documentation>verloondeUrenVoorRegeling</documentation>
+					<documentation>Aantal verloonde uren voor pensioen</documentation>
+				</annotation>
+			</element>
+		</sequence>
+	</complexType>
+	<complexType name="InkomstenperiodeType">
+		<sequence>
+			<element name="DatAanv" type="date"/>
+			<element name="SrtIV" type="upa:CodeSoortInkomstenverhouding"/>
+			<element name="CdAard" type="upa:AardArbeidsverhouding" minOccurs="0">
+				<annotation>
+					<documentation>Code die aangeeft welke soort arbeidsverhouding bepalend is voor de vaststelling dat de werknemer verplicht verzekerd is voor de werknemersverzekeringen.</documentation>
+				</annotation>
+			</element>
+			<element name="CdInvlVpl" type="upa:InvloedVerzekeringsplicht" minOccurs="0" maxOccurs="1"/>
+			<element name="FsIndFZ" type="upa:CodeFaseIndelingFenZ" minOccurs="0" maxOccurs="1"/>
+			<element name="CAO" type="upa:CodeCAO" minOccurs="0"/>
+			<element name="IndArbovOnbepTd" type="upa:JaNee" minOccurs="0"/>
+			<element name="IndOprov" type="upa:JaNee" minOccurs="0"/>
+			<element name="IndPubAanOnbepTd" type="upa:JaNee" minOccurs="0"/>
+			<element name="LbTab" type="upa:LoonBelastingTabel"/>
+			<element name="CdBeroep" type="upa:BeroepsCode" minOccurs="0" maxOccurs="1"/>
+			<element name="FuncOms" type="upa:Functieomschrijving" minOccurs="0" maxOccurs="1"/>
+			<element name="CdIncInkVerm" type="upa:CodeIncidenteleInkomstenvermindering" minOccurs="0" maxOccurs="1"/>
+			<element name="AantUNormWk" type="upa:UrenSpecificatieNorm" minOccurs="0"/>
+			<element name="AantUCntrWk" type="upa:UrenSpecificatieIndividueel" minOccurs="0"/>
+			<element name="PtPerc" type="upa:ParttimeSpecificatie" minOccurs="0"/>
+			<element name="CdVerbIkv" type="upa:VerbijzonderingInkomstenverhoudingsCode" minOccurs="0" maxOccurs="1"/>
+			<element name="IndMeet" type="upa:JaNee" minOccurs="0" maxOccurs="1">
+				<annotation>
+					<documentation>Indicatie die aangeeft of gedurende een periode loon genoten is (telt wel mee) of onderbroken is (telt niet mee, geen loon). </documentation>
+					<documentation>Dit is o.a. van toepassing bij oproepkracht (nuluren contract).</documentation>
+				</annotation>
+			</element>
+		</sequence>
+	</complexType>
+	<complexType name="InkomstenverhoudingInitieelType">
+		<annotation/>
+		<sequence>
+			<element name="NumIV" type="upa:InkomstenVerhoudingId"/>
+			<element name="DatAanv" type="date">
+				<annotation>
+					<documentation>De datum van de eerste dag waarop de inkomstenverhouding geldig is.</documentation>
+				</annotation>
+			</element>
+			<element name="DatEind" type="date" minOccurs="0">
+				<annotation>
+					<documentation>De datum van de laatste dag waarop de inkomstenverhouding geldig is.</documentation>
+				</annotation>
+			</element>
+			<element name="CdRdnEindArbov" type="upa:CdRdnEindArbov" minOccurs="0"/>
+			<element name="PersNr" type="upa:PersoonsNummer" minOccurs="0"/>
+			<element name="NatuurlijkPersoon" type="upa:NatuurlijkPersoonType"/>
+			<element name="Inkomstenperiode" type="upa:InkomstenperiodeType" minOccurs="1" maxOccurs="99"/>
+			<element name="Werknemersgegevens" type="upa:WerknemersgegevensType" minOccurs="1" maxOccurs="1"/>
+			<element name="Sector" type="upa:SectorType" minOccurs="0" maxOccurs="5"/>
+			<element name="RegelingGegevens" type="upa:RegelingGegevensType" minOccurs="0" maxOccurs="unbounded"/>
+		</sequence>
+	</complexType>
+	<complexType name="SectorType">
+		<sequence>
+			<element name="DatAanvSect" type="date">
+				<annotation>
+					<documentation>De datum van de eerste dag van de periode gedurende welke onder de inkomstenverhouding voor een sectorrisicogroep gewerkt is.</documentation>
+				</annotation>
+			</element>
+			<element name="DatEindSect" type="date" minOccurs="0">
+				<annotation>
+					<documentation>De datum van de laatste dag van de periode gedurende welke onder de Inkomstenverhouding voor een sectorrisicogroep gewerkt is.</documentation>
+				</annotation>
+			</element>
+			<element name="Sect">
+				<annotation>
+					<documentation>Code ter aanduiding van de sector waar de inkomstenverhouding onder viel gedurende de aangegeven periode.</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="nonNegativeInteger">
+						<maxInclusive value="999"/>
+					</restriction>
+				</simpleType>
+			</element>
+		</sequence>
+	</complexType>
+	<complexType name="InkomstenverhoudingIntrekkingType">
+		<sequence>
+			<element name="NumIV" type="upa:InkomstenVerhoudingId"/>
+			<element name="SofiNr" type="upa:BSN" minOccurs="0"/>
+			<element name="PersNr" type="upa:PersoonsNummer" minOccurs="0"/>
+		</sequence>
+	</complexType>
+	<complexType name="BerichtInfoType">
+		<annotation>
+			<documentation>De meta-data van het bericht: wie levert het aan, etc...</documentation>
+		</annotation>
+		<sequence>
+			<element name="IdBer" type="upa:BerichtId"/>
+			<element name="DatTdAanm" type="upa:BerichtAanmaakDatum"/>
+			<element name="ContPers">
+				<annotation>
+					<documentation>De naam van de persoon die namens de aanleveraar eventuele vragen over de inhoud van het bericht kan beantwoorden.</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="upa:NonEmptyString">
+						<maxLength value="35"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="TelNr" type="upa:Telefoonnummer">
+				<annotation>
+					<documentation>Het telefoonnummer van de contactpersoon van de aanleveraar.</documentation>
+				</annotation>
+			</element>
+			<element name="RelNr">
+				<annotation>
+					<documentation>Het (relatie)nummer waaronder de softwareontwikkelaar als abonnee bekend is bij de Belastingdienst</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="upa:NonEmptyString">
+						<maxLength value="8"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="GebrSwPakket">
+				<annotation>
+					<documentation>Beschrijving van het softwarepakket dat de aanleveraar van het bericht heeft gebruikt voor de vervaardiging van het bericht.</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="upa:NonEmptyString">
+						<maxLength value="27"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="IdLcr">
+				<annotation>
+					<documentation>Het nummer van de gegevensleverancier die via de geautomatiseerde administratie het bericht heeft gemaakt. </documentation>
+					<documentation>Dit nummer is bekend bij de leverancier en is uitgegeven door â¦.</documentation>
+				</annotation>
+				<simpleType>
+					<restriction base="upa:NonEmptyString">
+						<maxLength value="9"/>
+					</restriction>
+				</simpleType>
+			</element>
+			<element name="NmLcr" minOccurs="0">
+				<simpleType>
+					<restriction base="upa:NonEmptyString">
+						<maxLength value="35"/>
+					</restriction>
+				</simpleType>
+			</element>
+		</sequence>
+	</complexType>
+	<element name="PensioenAangifte">
+		<annotation>
+			<documentation> Structuur van het aan te leveren bericht </documentation>
+		</annotation>
+		<complexType>
+			<sequence>
+				<element name="Bericht" type="upa:BerichtInfoType"/>
+				<element name="AdministratieveEenheid" type="upa:AdministratieveEenheidType"/>
+			</sequence>
+			<attribute name="Version">
+				<simpleType>
+					<restriction base="token">
+						<enumeration value="1.0"/>
+					</restriction>
+				</simpleType>
+			</attribute>
+		</complexType>
+	</element>
+</schema>
