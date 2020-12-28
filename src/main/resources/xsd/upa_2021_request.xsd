@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- edited with XMLSpy v2019 rel. 3 sp1 (http://www.altova.com) by Jeroen Hartogensis (SIVI) -->
-<schema xmlns="http://www.w3.org/2001/XMLSchema" xmlns:upa="http://www.pensioenfederatie.nl/uniformePensioenAangifte/2021/01" targetNamespace="http://www.pensioenfederatie.nl/uniformePensioenAangifte/2021/01" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+		xmlns:upa="http://www.pensioenfederatie.nl/uniformePensioenAangifte/2021/01"
+		targetNamespace="http://www.pensioenfederatie.nl/uniformePensioenAangifte/2021/01"
+		elementFormDefault="qualified"
+		attributeFormDefault="unqualified">
 	<annotation>
 		<documentation>Beschrijving van de structuur van een Uniforme Pensioen Aangifte (een UPA)</documentation>
 		<documentation>Gedefinieerd door de Pensioenfederatie</documentation>
