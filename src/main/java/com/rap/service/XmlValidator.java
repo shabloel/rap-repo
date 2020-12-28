@@ -73,7 +73,6 @@ public class XmlValidator {
     }
 
 
-
     /**
      * Gets the validator.
      *
