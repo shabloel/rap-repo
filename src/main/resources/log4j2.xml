@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Configuration>
+    <Appenders>
+        <!-- Console Appender -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{yyyy-MMM-dd HH:mm:ss a} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+    	<RollingFile
+                name="rollfile"
+                fileName="/var/opt/rest-service-validator/log/rest-service-validator.log"
+                filePattern="/var/opt/rest-service-validator/log/rest-service-validator-%d{yyyyMMdd-HHmm}-%i.log">
+			<PatternLayout pattern="%5p %d{ISO8601} hwn-lcm-adapter-app - %m%n" />
+            <SizeBasedTriggeringPolicy size="10 MB" />
+            <DefaultRolloverStrategy max="30"/>
+        </RollingFile>        
+    </Appenders>
+    <Loggers>
+        <AsyncLogger name="rest-service-validator" level="INFO">
+            <AppenderRef ref="RollingFileA"/>
+            <AppenderRef ref="Console"/>
+        </AsyncLogger>
+    </Loggers>
+</Configuration>

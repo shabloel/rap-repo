@@ -3,8 +3,8 @@ package com.rap.berichten.responseberichten;
 
 public class Bericht {
 
-    private final String respSrt;
-    private final long IdBer;
+    private String respSrt;
+    private long IdBer;
 
     public Bericht(String respStr, long IdBer) {
         this.respSrt = respStr;
@@ -17,5 +17,13 @@ public class Bericht {
 
     public long getIdBer() {
         return IdBer;
+    }
+
+    public void setRespSrt(String respSrt) {
+        this.respSrt = respSrt;
+    }
+
+    public void setIdBer(long idBer) {
+        IdBer = idBer;
     }
 }
