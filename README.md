@@ -14,6 +14,11 @@ To start and run the application in Docker run the following commands
 in CMD:
 gradlew docker          -> creates image
 gradlew dockerRun       -> runs image in container
+gradle dockerStop       -> stops and removes container
+put image on repe:
+docker login            -> logs into your docker account
+gradlew dockerTagDockerHub	-> Creates a tag of your image. docker images now lists the concerning image and its tag
+gradleW dockerPushDockerHub	-> pushes the image to the repository
 
 Stack:
 Gradle
