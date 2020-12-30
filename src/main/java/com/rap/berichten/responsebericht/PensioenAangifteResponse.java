@@ -1,4 +1,4 @@
-package com.rap.berichten.responseberichten;
+package com.rap.berichten.responsebericht;
 
 public class PensioenAangifteResponse {
 

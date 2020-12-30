@@ -1,26 +1,26 @@
-package com.rap.berichten.responseberichten;
+package com.rap.berichten.responsebericht;
 
 
 public class Bericht {
 
-    private String respSrt;
+    private String respStr;
     private long IdBer;
 
     public Bericht(String respStr, long IdBer) {
-        this.respSrt = respStr;
+        this.respStr = respStr;
         this.IdBer = IdBer;
     }
 
-    public String getRespSrt() {
-        return respSrt;
+    public String getRespStr() {
+        return respStr;
     }
 
     public long getIdBer() {
         return IdBer;
     }
 
-    public void setRespSrt(String respSrt) {
-        this.respSrt = respSrt;
+    public void setRespStr(String respStr) {
+        this.respStr = respStr;
     }
 
     public void setIdBer(long idBer) {

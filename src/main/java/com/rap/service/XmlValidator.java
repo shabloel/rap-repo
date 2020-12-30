@@ -1,5 +1,6 @@
 package com.rap.service;
 
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.xml.sax.SAXException;
 
@@ -29,11 +30,14 @@ public class XmlValidator {
      * @throws org.xml.sax.SAXException
      *              SAX exception
      */
-    public static void init() throws SAXException {
-
-        SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-        Schema schema = schemaFactory.newSchema(new StreamSource(XmlValidator.class.getClassLoader().getResource("xsd/upa_2021_request.xsd").toExternalForm()));
-        validator = schema.newValidator();
+    public static void init() {
+        try {
+            SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+            Schema schema = schemaFactory.newSchema(new StreamSource(XmlValidator.class.getClassLoader().getResource("xsd/upa_2021_request.xsd").toExternalForm()));
+            validator = schema.newValidator();
+        }catch(SAXException e){
+            e.printStackTrace();
+        }
     }
 
 
@@ -48,7 +52,7 @@ public class XmlValidator {
      * @throws IOException
      *             Signals that an I/O exception has occurred.
      */
-    public static boolean validate(File input) throws SAXException, IOException, XMLStreamException {
+    public static boolean validate(File input) {
         StAXSource source = null;
         FileInputStream inputStream = null;
         boolean returnValue = false;
@@ -65,8 +69,9 @@ public class XmlValidator {
 
             validator.validate(source);
             returnValue = true;
-        } catch (SAXException | IOException | XMLStreamException exception) {
-            throw exception;
+        } catch (SAXException | IOException | XMLStreamException e) {
+            returnValue = false;
+            //e.printStackTrace();
         }
 
         return returnValue;

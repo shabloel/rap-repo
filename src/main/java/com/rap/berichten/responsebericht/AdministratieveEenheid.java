@@ -1,4 +1,4 @@
-package com.rap.berichten.responseberichten;
+package com.rap.berichten.responsebericht;
 
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;

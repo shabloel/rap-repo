@@ -2,7 +2,8 @@
 repository for RAP project
 
 This is an application that validates an incoming message from a client.
-
+uri: http://localhost:9090/api/upa
+request param: file
 It checks the following:
 1. Is the incoming file a zip-file?
 2. Does the zipfile contain a XML-file?
