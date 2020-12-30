@@ -4,13 +4,10 @@ import com.rap.berichten.responsebericht.AdministratieveEenheid;
 import com.rap.berichten.responsebericht.Bericht;
 import com.rap.berichten.responsebericht.PensioenAangifteResponse;
 import com.rap.service.XmlValidator;
-import net.lingala.zip4j.core.ZipFile;
-import net.lingala.zip4j.exception.ZipException;
+import com.rap.utils.UnzipFile;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.http.MediaType;
-import org.springframework.util.FileSystemUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -27,7 +23,6 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.UUID;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -46,45 +41,31 @@ public class ValidatorController {
     @PostMapping(value="/upa", produces = MediaType.APPLICATION_XML_VALUE)
     public PensioenAangifteResponse processUPAPost(@RequestParam("file")MultipartFile file)throws IOException {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-        String rootFolder = null;
 
         if(!Files.exists(Paths.get(FILE_BASE_PATH))){
             Files.createDirectories(Paths.get(FILE_BASE_PATH));
         }
 
-        logger.info("The directory name: " + rootFolder);
         logger.info("The directory name with extension:" + fileName);
         logger.info("Contenttype: " + file.getContentType());
         logger.info("Size: " + file.getSize());
         logger.info("Basepath for file upload: " + FILE_BASE_PATH);
 
-        try{
-            unpackZipfile(file);
-        }
-        catch(IOException | ZipException e){
-            e.printStackTrace();
-        }
-
         //check 1: is het binnenkomende bestand zip?
         if(!isZip(file)){
             respStr = "Not a zipfile";
-        }else{
-            rootFolder = fileName.substring(0, fileName.lastIndexOf("."));
-        }
-
-        //check 2: bevat het binnenkomende bestand een xml file?
-        if(!isXML(FILE_BASE_PATH +"/"+rootFolder)){
+        //check 2/3: bevat het binnenkomende bestand een xml file?
+        }else if(!isXML(FILE_BASE_PATH +"/"+fileName.substring(0, fileName.lastIndexOf(".")))){
             respStr = "Directory does not contain xml file";
-        }
-
         //check 4: validate xml file
-        logger.info("complete path for validation: " + getFilename(FILE_BASE_PATH +"/"+rootFolder).get(0));
-        if(!XmlValidator.validate(new File(getFilename(FILE_BASE_PATH +"/"+rootFolder).get(0)))){
+        }else if(!XmlValidator.validate(new File(getFilename(FILE_BASE_PATH +"/"+fileName.substring(0, fileName.lastIndexOf("."))).get(0)))){
+            logger.info("complete path for validation: " + getFilename(FILE_BASE_PATH +"/"+fileName.substring(0, fileName.lastIndexOf("."))).get(0));
             respStr = "Not a valid XML file";
         }else{
             respStr = "VALID";
         }
-        FileSystemUtils.deleteRecursively(new File("src/main/java/com/rap/upload/"));
+        Path path = Paths.get("src/main/java/com/rap/upload");
+
         return xmlResponse(respStr);
     }
 
@@ -95,8 +76,16 @@ public class ValidatorController {
         return pensioenAangifteResponse;
     }
 
-    private static boolean isZip(MultipartFile f) {
-        return f.getContentType().equalsIgnoreCase("application/zip");
+    private static boolean isZip(MultipartFile file) {
+        if(file.getContentType().equalsIgnoreCase("application/zip")) {
+            try {
+                UnzipFile.unzipFile(file, new File(FILE_BASE_PATH));
+            }catch(IOException e){
+                e.printStackTrace();
+            }
+            return true;
+        }
+        return false;
     }
 
     private static boolean isXML(String loc)throws IOException{
@@ -118,18 +107,5 @@ public class ValidatorController {
             e.printStackTrace();
         }
         return result;
-    }
-
-    private static void unpackZipfile(MultipartFile file)throws IOException, ZipException{
-        File zip = File.createTempFile(UUID.randomUUID().toString(),"temp");
-        // save file to temp
-        FileOutputStream o = new FileOutputStream(zip);
-        IOUtils.copy(file.getInputStream(), o);
-        o.close();
-
-        //unzip file
-        ZipFile zipfile = new ZipFile(zip);
-        zipfile.extractAll(FILE_BASE_PATH);
-        zip.delete();
     }
 }

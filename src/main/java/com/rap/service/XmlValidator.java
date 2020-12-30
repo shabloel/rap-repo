@@ -54,27 +54,32 @@ public class XmlValidator {
      */
     public static boolean validate(File input) {
         StAXSource source = null;
-        FileInputStream inputStream = null;
         boolean returnValue = false;
+        XMLStreamReader xmlStreamReader = null;
 
         if (validator == null) {
             init();
         }
 
-        try {
+        try (FileInputStream inputStream = new FileInputStream(input)){
             XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
-            inputStream = new FileInputStream(input);
-            XMLStreamReader xmlStreamReader = xmlInputFactory.createXMLStreamReader(inputStream);
+            xmlStreamReader = xmlInputFactory.createXMLStreamReader(inputStream);
             source = new StAXSource(xmlStreamReader);
-
             validator.validate(source);
             returnValue = true;
         } catch (SAXException | IOException | XMLStreamException e) {
+
             returnValue = false;
             //e.printStackTrace();
+        }finally {
+            try {
+                xmlStreamReader.close();
+            }catch(XMLStreamException e){
+                e.getNestedException();
+                }
         }
-
         return returnValue;
+
     }
 
 

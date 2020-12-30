@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PensioenAangifte xmlns="http://www.pensioenfederatie.nl/uniformePensioenAangifte/2021/01" Version="1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<Bericht>
-		<IdBer>123</IdBer>
+		<IdBer>12345</IdBer>
 		<DatTdAanm>2021-10-21T12:56:37</DatTdAanm>
 		<ContPers>Esman</ContPers>
 		<TelNr>030-1234567</TelNr>
