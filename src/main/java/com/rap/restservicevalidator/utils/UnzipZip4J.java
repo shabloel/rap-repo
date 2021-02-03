@@ -1,4 +1,4 @@
-package com.rap.utils;
+package com.rap.restservicevalidator.utils;
 
 import net.lingala.zip4j.exception.ZipException;
 import net.lingala.zip4j.core.ZipFile;

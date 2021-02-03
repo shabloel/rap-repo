@@ -1,4 +1,4 @@
-package com.rap.berichten.responsebericht;
+package com.rap.restservicevalidator.model;
 
 public class PensioenAangifteResponse {
 

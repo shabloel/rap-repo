@@ -1,4 +1,4 @@
-package com.rap.utils;
+package com.rap.restservicevalidator.utils;
 
 import org.springframework.web.multipart.MultipartFile;
 

@@ -1,4 +1,4 @@
-package com.rap.berichten.responsebericht;
+package com.rap.restservicevalidator.model;
 
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;

@@ -1,4 +1,4 @@
-package com.rap.utils;
+package com.rap.restservicevalidator.utils;
 
 import java.io.File;
 import java.io.FileInputStream;

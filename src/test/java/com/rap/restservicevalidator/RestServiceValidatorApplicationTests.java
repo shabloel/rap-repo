@@ -1,7 +1,7 @@
 package com.rap.restservicevalidator;
 
-import com.rap.service.XmlValidator;
-import com.rap.utils.ZipFile;
+import com.rap.restservicevalidator.controllers.ValidatorController;
+import com.rap.restservicevalidator.utils.ZipFile;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
