@@ -25,14 +25,16 @@ docker {
 dockerRun{
 	name "rap-validator"  // name container
 	image "${project.name}:${project.version}"
-	ports '9090:9090' //contport:hostport
+	ports '8090:8090' //contport:hostport
 	clean true //removes container when stopped
 }
 
 dependencies {
 	compile 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.9.9'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation ('org.springframework.boot:spring-boot-starter-test'){
+		exclude group: 'junit', module: 'junit'
+	}
 	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
 	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
 	implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.13.3'
