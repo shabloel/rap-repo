@@ -1,7 +1,11 @@
 package com.rap.restservicevalidator;
 
 import com.rap.restservicevalidator.controllers.ValidatorController;
+import com.rap.restservicevalidator.model.PensioenAangifteResponse;
+import com.rap.restservicevalidator.service.ValidatorService;
+import com.rap.restservicevalidator.utils.MultiPartToFile;
 import com.rap.restservicevalidator.utils.ZipFile;
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,10 +31,17 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 class RestServiceValidatorApplicationTests {
 	private static final String SOURCE_FOLDER = "src/test/resources/berichten/unzipped";
 	private static final String DESTINATION_FOLDER = "src/test/resources/berichten";
-	@Autowired
-	private ValidatorController controller;
+
+	private final ValidatorController controller;
+	private final ValidatorService<MultiPartToFile> validatorService;
 
 	private static final String PATH = "src/test/resources/berichten/unzipped/upa-valid";
+
+	@Autowired
+	public RestServiceValidatorApplicationTests(ValidatorController controller, ValidatorService<MultiPartToFile> validatorService) {
+		this.controller = controller;
+		this.validatorService = validatorService;
+	}
 
 	@Autowired
 	WebApplicationContext webApplicationContext;
@@ -39,7 +50,7 @@ class RestServiceValidatorApplicationTests {
 
 	@Test
 	void validateValdiationMethod() throws SAXException, IOException, XMLStreamException {
-		assertEquals(true, XmlValidator.validate(new File("src/test/resources/berichten/unzipped/upa-valid/UPA_Regulier_2021_upa.xml")));
+		//assertEquals(true, validatorService.validate(new File("src/test/resources/berichten/unzipped/upa-valid/UPA_Regulier_2021_upa.xml")));
 	}
 
 	public void uploadCorrectZipfileTest() throws Exception {

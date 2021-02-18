@@ -4,5 +4,5 @@ import java.io.File;
 
 public interface ValidatorService<T> {
 
-    boolean validate(File input);
+    boolean validate(T input);
 }

@@ -19,7 +19,7 @@ import java.io.IOException;
 
 
 @Service
-public class ValidatorImpl implements ValidatorService {
+public class ValidatorImpl implements ValidatorService<File> {
 
     private static Validator validator;
 

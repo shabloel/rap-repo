@@ -21,12 +21,12 @@ import java.io.IOException;
 public class UpaServiceImpl implements UpaService<PensioenAangifteResponse, MultipartFile> {
 
     private HasFileExtensionService hasFileExtensionService;
-    private IsZipService<MultipartFile> isZipService;
+    private IsZipService<File> isZipService;
     private ValidatorService validatorService;
     private ResponseCreatorService<PensioenAangifteResponse> responseCreatorService;
 
     @Autowired
-    public UpaServiceImpl(HasFileExtensionService hasFileExtensionService, IsZipService<MultipartFile> isZipService, ValidatorService validatorService, ResponseCreatorService<PensioenAangifteResponse> responseCreatorService) {
+    public UpaServiceImpl(HasFileExtensionService hasFileExtensionService, IsZipService<File> isZipService, ValidatorService validatorService, ResponseCreatorService<PensioenAangifteResponse> responseCreatorService) {
         this.hasFileExtensionService = hasFileExtensionService;
         this.isZipService = isZipService;
         this.validatorService = validatorService;
@@ -43,7 +43,8 @@ public class UpaServiceImpl implements UpaService<PensioenAangifteResponse, Mult
         }catch(IOException e){
             e.printStackTrace();
         }
-        if(!isZipService.isZip(multipartFile)){
+
+        if(!isZipService.isZip(file)){
             respStr = "Not a zipfile";
 
         }else if(hasFileExtensionService.isXML(multipartFile)){
